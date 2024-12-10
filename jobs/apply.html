@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Job</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <h1>Apply for Job</h1>
+    </header>
+    <main class="obj-width">
+        <form id="applyForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="resume">Upload Resume:</label>
+            <input type="file" id="resume" name="resume" required>
+
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+    </main>
+    <footer>
+        <a href="jobDetails.html" class="back-btn">Back to Job Details</a>
+    </footer>
+    <script src="apply.js"></script>
+</body>
+</html>

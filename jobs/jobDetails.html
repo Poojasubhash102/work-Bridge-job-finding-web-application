@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details & Apply</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .job-details-container {
+            width: 90%;
+            max-width: 800px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            max-height: 95vh;
+        }
+
+        .job-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .job-header img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .job-header h2 {
+            margin: 10px 0;
+            color: #007bff;
+        }
+
+        .job-header p {
+            margin: 5px 0;
+        }
+
+        .job-info {
+            margin-bottom: 20px;
+        }
+
+        .job-info p {
+            margin: 8px 0;
+        }
+
+        .application-form {
+            margin-top: 30px;
+        }
+
+        .application-form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        .application-form input,
+        .application-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .application-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .application-form button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .job-details-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="job-details-container" id="jobDetailsContainer">
+        <!-- Job Details and Form will be rendered here -->
+    </div>
+
+    <script>
+        const jobDetailsContainer = document.getElementById("jobDetailsContainer");
+        const job = JSON.parse(localStorage.getItem("selectedJob"));
+
+        if (job) {
+            jobDetailsContainer.innerHTML = `
+                <div class="job-header">
+                    <img src="${job.image}" alt="${job.company}">
+                    <h2>${job.title}</h2>
+                    <p><strong>Company:</strong> ${job.company}</p>
+                    <p><strong>Salary:</strong> ${job.salary}</p>
+                    <p><strong>Type:</strong> ${job.type}</p>
+                </div>
+
+                <div class="job-info">
+                    <p><strong>Location:</strong> ${job.location || "Not Specified"}</p>
+                    <p><strong>Description:</strong> ${job.description || "No description provided."}</p>
+                    <p><strong>Required Skills:</strong> ${job.skills || "General Skills"}</p>
+                </div>
+
+                <form class="application-form" id="applicationForm">
+                    <h3>Apply Now</h3>
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" required>
+
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+
+                
+
+                    <label for="coverLetter">Cover Letter:</label>
+                    <textarea id="coverLetter" name="coverLetter" rows="5" placeholder="Write your cover letter here..." required></textarea>
+
+                    <label for="resume">Upload Resume:</label>
+                    <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+
+                    <button type="submit">Submit Application</button>
+                </form>
+            `;
+
+            // Add form submission handling
+            const applicationForm = document.getElementById("applicationForm");
+            applicationForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const formData = new FormData(applicationForm);
+                console.log("Application Submitted:", Object.fromEntries(formData));
+                alert("Your application has been submitted successfully!");
+            });
+        } else {
+            jobDetailsContainer.innerHTML = `<p>No job details available. Please go back to the job listings.</p>`;
+        }
+    </script>
+</body>
+</html>
